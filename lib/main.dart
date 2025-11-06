@@ -1,4 +1,4 @@
-import 'package:breathingcompanion/breathing_loop_page.dart';
+import 'package:breathingcompanion/gaplessplaylist.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,9 +11,14 @@ const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter',
+      debugShowCheckedModeBanner: false,
+      title: 'Equanimity',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: BreathingLoopPage(),
+      home: Banner(
+        message: "BETA", 
+        location: BannerLocation.topEnd,
+        color: Colors.green,
+        child: const GaplessPlaylist(),)
     );
   }
 }
