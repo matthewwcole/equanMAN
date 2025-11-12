@@ -16,9 +16,9 @@ bool _isPlaying = false;
 //we can track what phase we are in
 
 final playlistBreathing = <AudioSource>[
-  AudioSource.asset('assets/audio/e9.wav'),
-  AudioSource.asset('assets/audio/hold2.wav'),
   AudioSource.asset('assets/audio/i6.wav'),
+  AudioSource.asset('assets/audio/hold2.wav'),
+  AudioSource.asset('assets/audio/e9.wav'),
   AudioSource.asset('assets/audio/hold2.wav'),
 ];
 
