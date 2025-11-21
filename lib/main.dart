@@ -1,4 +1,4 @@
-import 'package:breathingcompanion/gaplessplaylist.dart';
+import 'package:breathingcompanion/view/gaplessplaylist.dart';
 import 'package:flutter/material.dart';
 
 void main() {
