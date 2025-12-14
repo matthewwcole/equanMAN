@@ -36,13 +36,12 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData(
             brightness: Brightness.dark,
             primarySwatch: Colors.blue,
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                  Colors.blue.shade800,
-                ),
-              ),
-            ),
+            // elevatedButtonTheme: ElevatedButtonThemeData(
+            //   style: ButtonStyle(
+            //     backgroundColor:
+            //         MaterialStateProperty.all<Color>(Colors.blue.shade900),
+            //   ),
+            // ),
           ),
           themeMode: themeViewModel.themeMode,
           home: const Banner(
