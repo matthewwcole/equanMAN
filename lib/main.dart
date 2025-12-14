@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           themeMode: themeViewModel.themeMode,
           home: const Banner(
             message: "BETA",
-            location: BannerLocation.topEnd,
+            location: BannerLocation.topStart,
             color: Colors.green,
             child: GaplessPlaylist(),
           ),

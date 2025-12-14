@@ -148,21 +148,22 @@ class _GaplessPlaylistState extends State<GaplessPlaylist> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Equanimity'),
-        leading: Consumer<ThemeViewModel>(
-          builder: (context, themeViewModel, child) {
-            return IconButton(
-              icon: Icon(
-                themeViewModel.themeMode == ThemeMode.dark
-                    ? Icons.dark_mode
-                    : Icons.light_mode,
-              ),
-              onPressed: () {
-                themeViewModel.toggleTheme();
-              },
-            );
-          },
-        ),
+        actions: [
+          Consumer<ThemeViewModel>(
+            builder: (context, themeViewModel, child) {
+              return IconButton(
+                icon: Icon(
+                  themeViewModel.themeMode == ThemeMode.dark
+                      ? Icons.dark_mode
+                      : Icons.light_mode,
+                ),
+                onPressed: () {
+                  themeViewModel.toggleTheme();
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: AudioControlButtons(
