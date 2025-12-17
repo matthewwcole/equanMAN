@@ -1,8 +1,6 @@
 import 'package:breathingcompanion/view/audio_control_buttons.dart';
 import 'package:breathingcompanion/viewmodel/sleep_timer_viewmodel.dart';
-import 'package:breathingcompanion/viewmodel/theme_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../model/audio_player_service.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -149,20 +147,6 @@ class _GaplessPlaylistState extends State<GaplessPlaylist> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Equanimity'),
-        leading: Consumer<ThemeViewModel>(
-          builder: (context, themeViewModel, child) {
-            return IconButton(
-              icon: Icon(
-                themeViewModel.themeMode == ThemeMode.dark
-                    ? Icons.dark_mode
-                    : Icons.light_mode,
-              ),
-              onPressed: () {
-                themeViewModel.toggleTheme();
-              },
-            );
-          },
-        ),
       ),
       body: Center(
         child: AudioControlButtons(

@@ -1,14 +1,9 @@
 import 'package:breathingcompanion/view/gaplessplaylist.dart';
-import 'package:breathingcompanion/viewmodel/theme_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeViewModel(),
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
@@ -17,42 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeViewModel>(
-      builder: (context, themeViewModel, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Equanimity',
-          theme: ThemeData(
-            brightness: Brightness.light,
-            primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: const Color(0xFFEDE0D4),
-            // elevatedButtonTheme: ElevatedButtonThemeData(
-            //   style: ButtonStyle(
-            //     backgroundColor:
-            //         MaterialStateProperty.all<Color>(Colors.blue.shade100),
-            //   ),
-            // ),
-          ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: Colors.blue,
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                  Colors.blue.shade800,
-                ),
-              ),
-            ),
-          ),
-          themeMode: themeViewModel.themeMode,
-          home: const Banner(
-            message: "BETA",
-            location: BannerLocation.topEnd,
-            color: Colors.green,
-            child: GaplessPlaylist(),
-          ),
-        );
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Equanimity',
+      home: const Banner(
+        message: "BETA",
+        location: BannerLocation.topEnd,
+        color: Colors.green,
+        child: GaplessPlaylist(),
+      ),
     );
   }
 }
