@@ -1,15 +1,9 @@
-import 'package:breathingcompanion/view/gaplessplaylist.dart';
-import 'package:breathingcompanion/viewmodel/theme_viewmodel.dart';
+import 'package:breathingcompanion/view/home_breathing_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:breathingcompanion/viewmodel/theme/app_pallete.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeViewModel(),
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,41 +11,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeViewModel>(
-      builder: (context, themeViewModel, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Equanimity',
-          theme: ThemeData(
-            brightness: Brightness.light,
-            primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: const Color(0xFFEDE0D4),
-            // elevatedButtonTheme: ElevatedButtonThemeData(
-            //   style: ButtonStyle(
-            //     backgroundColor:
-            //         MaterialStateProperty.all<Color>(Colors.blue.shade100),
-            //   ),
-            // ),
+    //    final HSLColor hslColor = HSLColor.fromColor(Pallete.scarletSmile);
+    //    final HSLColor desaturatedColor = hslColor.withSaturation(0.2);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Pallete.primaryText,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: Colors.blue,
-            // elevatedButtonTheme: ElevatedButtonThemeData(
-            //   style: ButtonStyle(
-            //     backgroundColor:
-            //         MaterialStateProperty.all<Color>(Colors.blue.shade900),
-            //   ),
-            // ),
-          ),
-          themeMode: themeViewModel.themeMode,
-          home: const Banner(
-            message: "BETA",
-            location: BannerLocation.topStart,
-            color: Colors.green,
-            child: GaplessPlaylist(),
-          ),
-        );
-      },
-    );
+        ),
+        textTheme:
+            const TextTheme(
+              bodySmall: TextStyle(color: Pallete.primaryText),
+              bodyMedium: TextStyle(color: Pallete.primaryText),
+              bodyLarge: TextStyle(color: Pallete.primaryText),
+            ).apply(
+              bodyColor: Pallete.primaryText,
+              displayColor: Pallete.primaryText,
+            ),
+      ),
+      title: 'Equanimity 😮‍💨',
+      home: Banner(
+        message: "BETA",
+        location: BannerLocation.topEnd,
+        color: Pallete.scarletSmile,
+        child: HomeBreathingScreen(),
+      ),
+    )
   }
 }
