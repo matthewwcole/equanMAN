@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:breathingcompanion/viewmodel/theme/app_pallete.dart';
 
 void main() {
-  runApp(
-    const MyApp(),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,8 +11,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    final HSLColor hslColor = HSLColor.fromColor(Pallete.scarletSmile);
-//    final HSLColor desaturatedColor = hslColor.withSaturation(0.2);
+    //    final HSLColor hslColor = HSLColor.fromColor(Pallete.scarletSmile);
+    //    final HSLColor desaturatedColor = hslColor.withSaturation(0.2);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -25,14 +23,15 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        textTheme: const TextTheme(
-          bodySmall: TextStyle(color: Pallete.primaryText),
-          bodyMedium: TextStyle(color: Pallete.primaryText),
-          bodyLarge: TextStyle(color: Pallete.primaryText),
-        ).apply(
-          bodyColor: Pallete.primaryText,
-          displayColor: Pallete.primaryText,
-        ),
+        textTheme:
+            const TextTheme(
+              bodySmall: TextStyle(color: Pallete.primaryText),
+              bodyMedium: TextStyle(color: Pallete.primaryText),
+              bodyLarge: TextStyle(color: Pallete.primaryText),
+            ).apply(
+              bodyColor: Pallete.primaryText,
+              displayColor: Pallete.primaryText,
+            ),
       ),
       title: 'Equanimity 😮‍💨',
       home: Banner(

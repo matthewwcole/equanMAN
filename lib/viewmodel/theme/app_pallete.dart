@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 class Pallete {
   // 4 -5 Core Colors
-  
-  
+
   // Ocean Colors
   static const backgroundColor = Color(0xFF03045e); // Deep Twilight
   static const surfaceColor = Color(0xFF023e8a); // French Blue - for cards
@@ -27,9 +26,10 @@ class Pallete {
   // Pantone Colors
   static const cloudDancer = Color(0xFFF0EEE9); // Cloud Dancer
   static const scarletSmile = Color(0xFFA33745); // Scarlet Smile
-  static final Color desaturatedScarletSmile = HSLColor.fromColor(scarletSmile).withSaturation(0.4).toColor(); // Desaturated Scarlet Smile
+  static final Color desaturatedScarletSmile = HSLColor.fromColor(
+    scarletSmile,
+  ).withSaturation(0.4).toColor(); // Desaturated Scarlet Smile
   static const caraMEL = Color(0xFFC37C54); // Caramel
-  static const iceMelt = Color(0xFFD3E4F1); // Ice Melt 
+  static const iceMelt = Color(0xFFD3E4F1); // Ice Melt
   static const rinsingRivulet = Color(0xFF5CC6C3); // Rinsing Rivulet
-
 }

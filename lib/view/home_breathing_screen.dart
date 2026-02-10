@@ -22,9 +22,7 @@ class _HomeBreathingScreenState extends State<HomeBreathingScreen> {
   void initState() {
     super.initState();
     _timerLogic = SleepTimerLogic(_audioService); //initialized here
-    _audioService.loadPlaylist(
-      Playlist.allPlaylists[_selectedPlaylistIndex],
-    );
+    _audioService.loadPlaylist(Playlist.allPlaylists[_selectedPlaylistIndex]);
   }
 
   void _onPlayPressed() async {
@@ -49,11 +47,11 @@ class _HomeBreathingScreenState extends State<HomeBreathingScreen> {
             fontStyle: FontStyle.italic,
           ),
           backgroundColor: Pallete.softPeriwinkle,
-            children: [
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 5); // 5 minutes
-                },
+          children: [
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, 5); // 5 minutes
+              },
               child: const Text('5 Minutes'),
             ),
             SimpleDialogOption(
@@ -162,74 +160,76 @@ class _HomeBreathingScreenState extends State<HomeBreathingScreen> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [Pallete.surfaceColor, Pallete.backgroundColor],
-          ),
-      ),
-    child: Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: Text(
-          'Equanimity',
-          style: TextStyle(
-            fontFamily: 'Sansita Swashed',
-            color: Pallete.cloudDancer,
-            fontSize: 40,
-            letterSpacing: 1.5,
-            //fontWeight: FontWeight.bold,
-          ),
         ),
-        centerTitle: true,
+      ),
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        elevation: 0,
-        toolbarHeight: 80.0,
-      ),
-      body: Center(
-        //Add DropdownButton<int>
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Inhale - Inhale Hold - Exhale - Exhale Hold',
-              style: TextStyle(
-                fontFamily: 'Open Sans',
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              )
+        appBar: AppBar(
+          title: Text(
+            'Equanimity',
+            style: TextStyle(
+              fontFamily: 'Sansita Swashed',
+              color: Pallete.cloudDancer,
+              fontSize: 40,
+              letterSpacing: 1.5,
+              //fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 20),
-            DropdownButton<int>(
-              dropdownColor: const Color(0xFF023e8a),
-              style: const TextStyle(
-                color: Pallete.primaryText,
-                fontSize: 16,
-                
-              ),
-              value: _selectedPlaylistIndex,
-              items: Playlist.allPlaylists.asMap().entries.map((e) => 
-                DropdownMenuItem<int>(
-                  value: e.key,
-                  child: Text(e.value.title),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          toolbarHeight: 80.0,
+        ),
+        body: Center(
+          //Add DropdownButton<int>
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Inhale - Inhale Hold - Exhale - Exhale Hold',
+                style: TextStyle(
+                  fontFamily: 'Open Sans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
-              ).toList(),
-              onChanged: (index) {
-                if (index != null) {
-                  setState(() {
-                    _selectedPlaylistIndex = index;
-                  });
-                  _audioService.loadPlaylist(
-                    Playlist.allPlaylists[index],
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            AudioControlButtons(
-              onPlay: _onPlayPressed,
-              onStop: _onStopPressed,
-              startTimer: _onTimerPressed,
-            ),
-          ],
+              ),
+              const SizedBox(height: 20),
+              DropdownButton<int>(
+                dropdownColor: const Color(0xFF023e8a),
+                style: const TextStyle(
+                  color: Pallete.primaryText,
+                  fontSize: 16,
+                ),
+                value: _selectedPlaylistIndex,
+                items: Playlist.allPlaylists
+                    .asMap()
+                    .entries
+                    .map(
+                      (e) => DropdownMenuItem<int>(
+                        value: e.key,
+                        child: Text(e.value.title),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (index) {
+                  if (index != null) {
+                    setState(() {
+                      _selectedPlaylistIndex = index;
+                    });
+                    _audioService.loadPlaylist(Playlist.allPlaylists[index]);
+                  }
+                },
+              ),
+              const SizedBox(height: 20),
+              AudioControlButtons(
+                onPlay: _onPlayPressed,
+                onStop: _onStopPressed,
+                startTimer: _onTimerPressed,
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
   }
 }

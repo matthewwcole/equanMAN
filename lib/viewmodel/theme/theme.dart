@@ -5,7 +5,7 @@ class AppTheme {
     scaffoldBackgroundColor: Color(0xFF03045e), // Deep Twilight
     appBarTheme: AppBarTheme(
       backgroundColor: Color(0xFF03045e), // Deep Twilight
-      ),
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: ButtonStyle(
         //foregroundColor: WidgetStateProperty.all(Color(0xFFCAF0F8)), // Light Cyan
@@ -19,9 +19,7 @@ class AppTheme {
       ),
     ),
     cupertinoOverrideTheme: MaterialBasedCupertinoThemeData(
-      materialTheme: ThemeData(primaryColor: Color(0xFF0096C7))),
+      materialTheme: ThemeData(primaryColor: Color(0xFF0096C7)),
+    ),
   );
 }
-
-
-

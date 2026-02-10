@@ -57,7 +57,11 @@ class _GradientStarButtonState extends State<GradientStarButton>
       onPointerUp: _onPointerUp,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 500),
-        transform: Matrix4.diagonal3Values(_isPressed ? 1.1 : 1.0, _isPressed ? 1.1 : 1.0, 1.0),
+        transform: Matrix4.diagonal3Values(
+          _isPressed ? 1.1 : 1.0,
+          _isPressed ? 1.1 : 1.0,
+          1.0,
+        ),
         transformAlignment: Alignment.center,
         child: Container(
           width: 13 * 16.0, // 13rem
@@ -72,10 +76,7 @@ class _GradientStarButtonState extends State<GradientStarButton>
                 Color(0xFF0044FF),
               ],
             ),
-            border: Border.all(
-              color: Colors.transparent,
-              width: 4,
-            ),
+            border: Border.all(color: Colors.transparent, width: 4),
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -90,12 +91,7 @@ class _GradientStarButtonState extends State<GradientStarButton>
                   fontSize: 12,
                   letterSpacing: 5,
                   color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 4.0,
-                      color: Colors.white,
-                    ),
-                  ],
+                  shadows: [Shadow(blurRadius: 4.0, color: Colors.white)],
                 ),
               ),
             ),

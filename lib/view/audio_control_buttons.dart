@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:breathingcompanion/view/neumorphic_button.dart';
 
-enum PlayerState {
-  playing,
-  stopped,
-  timer,
-}
+enum PlayerState { playing, stopped, timer }
 
-class AudioControlButtons extends StatefulWidget{
-  
+class AudioControlButtons extends StatefulWidget {
   // Define two final VoidCallback variables here (one for play, one for stop, timer)
   final VoidCallback onPlay;
   final VoidCallback onStop;
   final VoidCallback startTimer;
-  
+
   // Constructor that requires those two callbacks
   const AudioControlButtons({
-    super.key, 
-    required this.onPlay, 
+    super.key,
+    required this.onPlay,
     required this.onStop,
-    required this.startTimer
-    });
+    required this.startTimer,
+  });
 
   @override
   State<AudioControlButtons> createState() => _AudioControlButtonsState();
@@ -49,29 +43,66 @@ class _AudioControlButtonsState extends State<AudioControlButtons> {
     });
     widget.startTimer();
   }
-  
-// build method with your two ElevatedButtons
+
+  // build method with your two ElevatedButtons
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          NeumorphicButton(
+          ElevatedButton(
             onPressed: _handlePlay,
-            text: 'Play',
-            isPlaying: _playerState == PlayerState.playing,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _playerState == PlayerState.playing
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+              foregroundColor: Colors.white,
+              fixedSize: const Size(100, 100),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Text(
+              'Play',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           const SizedBox(width: 20),
-          NeumorphicButton(
+          ElevatedButton(
             onPressed: _handleStop,
-            text: 'Stop',
-            isPlaying: _playerState == PlayerState.stopped,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _playerState == PlayerState.stopped
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+              foregroundColor: Colors.white,
+              fixedSize: const Size(100, 100),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Text(
+              'Stop',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           const SizedBox(width: 20),
-          NeumorphicButton(
+          ElevatedButton(
             onPressed: _handleTimer,
-            text: 'Timer',
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _playerState == PlayerState.timer
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
+              foregroundColor: Colors.white,
+              fixedSize: const Size(100, 100),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Text(
+              'Timer',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
