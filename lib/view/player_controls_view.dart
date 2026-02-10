@@ -118,11 +118,7 @@ class _PlayerControlsViewState extends State<PlayerControlsView> {
       stream: _viewModel.positionDataStream,
       builder: (context, snapshot) {
         final positionData = snapshot.data ??
-            (
-              position: Duration.zero,
-              bufferedPosition: Duration.zero,
-              duration: Duration.zero
-            );
+            const PositionData(Duration.zero, Duration.zero, Duration.zero);
 
         // Helper to format duration to mm:ss
         String formatDuration(Duration d) {

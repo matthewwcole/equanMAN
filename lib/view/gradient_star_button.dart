@@ -17,7 +17,7 @@ class GradientStarButton extends StatefulWidget {
 class _GradientStarButtonState extends State<GradientStarButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
+
   bool _isPressed = false;
 
   @override
@@ -28,7 +28,7 @@ class _GradientStarButtonState extends State<GradientStarButton>
       duration: const Duration(seconds: 5),
     )..repeat();
 
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+
   }
 
   @override

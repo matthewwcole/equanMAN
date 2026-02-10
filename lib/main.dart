@@ -40,6 +40,6 @@ class MyApp extends StatelessWidget {
         color: Pallete.scarletSmile,
         child: HomeBreathingScreen(),
       ),
-    )
+    );
   }
 }

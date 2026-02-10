@@ -1,5 +1,14 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:rxdart/rxdart.dart'; // Import rxdart for CombineLatestStream
+
+/// A class to hold the current position, buffered position, and total duration of the audio.
+class PositionData {
+  const PositionData(this.position, this.bufferedPosition, this.duration);
+  final Duration position;
+  final Duration bufferedPosition;
+  final Duration duration;
+}
 
 class Playlist {
   final String title;
@@ -46,13 +55,18 @@ class Playlist {
 class AudioPlayerService {
   final _player = AudioPlayer();
 
-  /*   //Our First Playlist ... eventually we can track where we are in the playlist
-  final _playlistResonantBreath = <AudioSource>[
-    AudioSource.asset('assets/audio/i6.wav'),
-    AudioSource.asset('assets/audio/hold2.wav'),
-    AudioSource.asset('assets/audio/e9.wav'),
-    AudioSource.asset('assets/audio/hold2.wav'),
-  ]; */
+  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
+  Stream<SequenceState?> get sequenceStateStream => _player.sequenceStateStream;
+  bool get hasNext => _player.hasNext;
+  bool get hasPrevious => _player.hasPrevious;
+
+  Stream<PositionData> get positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          _player.positionStream,
+          _player.bufferedPositionStream,
+          _player.durationStream,
+          (position, bufferedPosition, duration) => PositionData(
+              position, bufferedPosition, duration ?? Duration.zero));
 
   Future<void> loadPlaylist(Playlist playlist, {int initialIndex = 0}) async {
     await _player.stop(); // Stop current playback
@@ -96,6 +110,22 @@ class AudioPlayerService {
   Future<void> play() async {
     await _init();
     await _player.play();
+  }
+
+  Future<void> pause() async {
+    await _player.pause();
+  }
+
+  Future<void> seek(Duration position) async {
+    await _player.seek(position);
+  }
+
+  Future<void> seekToNext() async {
+    await _player.seekToNext();
+  }
+
+  Future<void> seekToPrevious() async {
+    await _player.seekToPrevious();
   }
 
   // --- ANOTHER PUBLIC method for the UI ---
