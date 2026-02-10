@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
               displayColor: Pallete.primaryText,
             ),
       ),
-      title: 'Equanimity 😮‍💨',
+      title: '😠 Equanimity 😮‍💨',
       home: Banner(
         message: "BETA",
         location: BannerLocation.topEnd,
