@@ -2,7 +2,7 @@
 
 // lib/viewmodel/player_viewmodel.dart
 import 'package:just_audio/just_audio.dart';
-import '../model/audio_player_service.dart';
+import '../services/audio_player_service.dart';
 
 // This ViewModel is simple, mainly passing through the service's functionality.
 // It could be expanded to include more complex logic, like managing playlists.

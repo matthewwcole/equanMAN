@@ -1,6 +1,8 @@
-import 'package:breathingcompanion/view/home_breathing_screen.dart';
+import 'package:equanimity/view/home_breathing_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:breathingcompanion/viewmodel/theme/app_pallete.dart';
+import 'package:equanimity/theme/app_pallete.dart';
+import 'package:provider/provider.dart';
+import 'package:equanimity/viewmodel/home_breathing_viewmodel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,8 +40,12 @@ class MyApp extends StatelessWidget {
         message: "BETA",
         location: BannerLocation.topEnd,
         color: Pallete.scarletSmile,
-        child: HomeBreathingScreen(),
+        child: ChangeNotifierProvider(
+          create: (context) => HomeBreathingViewModel(),
+          child: HomeBreathingScreen(),
+        ),
       ),
     );
   }
 }
+

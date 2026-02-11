@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum PlayerState { playing, stopped, timer }
+import 'package:equanimity/model/player_state.dart';
 
 class AudioControlButtons extends StatefulWidget {
   // Define two final VoidCallback variables here (one for play, one for stop, timer)

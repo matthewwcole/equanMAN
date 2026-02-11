@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:breathingcompanion/model/audio_player_service.dart';
+import 'package:equanimity/services/audio_player_service.dart';
 
 class SleepTimerLogic {
   Timer? _timer; //null because if a user cancels it would crash without it

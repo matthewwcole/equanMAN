@@ -1,7 +1,9 @@
 // lib/view/player_controls_view.dart
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import '../model/audio_player_service.dart';
+import 'package:just_audio/just_audio.dart' as just_audio;
+import 'package:equanimity/model/player_state.dart';
+import 'package:equanimity/model/position_data.dart';
+import '../services/audio_player_service.dart';
 import '../viewmodel/player_viewmodel.dart';
 
 class PlayerControlsView extends StatefulWidget {
@@ -40,7 +42,7 @@ class _PlayerControlsViewState extends State<PlayerControlsView> {
 
   /// Builds the track title display
   Widget _buildTrackInfo() {
-    return StreamBuilder<SequenceState?>(
+    return StreamBuilder<just_audio.SequenceState?>(
       stream: _viewModel.sequenceStateStream,
       builder: (context, snapshot) {
         final state = snapshot.data;
@@ -59,10 +61,7 @@ class _PlayerControlsViewState extends State<PlayerControlsView> {
 
   /// Builds the control buttons (Play/Pause/Replay)
   Widget _buildControlButtons() {
-    return StreamBuilder<SequenceState?>(
-      stream: _viewModel.sequenceStateStream,
-      builder: (context, snapshot) {
-        return Row(
+    return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
@@ -74,18 +73,19 @@ class _PlayerControlsViewState extends State<PlayerControlsView> {
               stream: _viewModel.playerStateStream,
               builder: (context, snapshot) {
                 final playerState = snapshot.data;
-                final processingState = playerState?.processingState;
-                final isPlaying = playerState?.playing ?? false;
+                final just_audio.PlayerState? justAudioPlayerState = _viewModel.currentJustAudioPlayerState;
+                final processingState = justAudioPlayerState?.processingState;
+                final isPlaying = playerState == PlayerState.playing;
 
-                if (processingState == ProcessingState.loading ||
-                    processingState == ProcessingState.buffering) {
+                if (processingState == just_audio.ProcessingState.loading ||
+                    processingState == just_audio.ProcessingState.buffering) {
                   return const CircularProgressIndicator();
                 }
 
                 if (!isPlaying) {
                   return IconButton(
                     icon: Icon(
-                      processingState == ProcessingState.completed
+                      processingState == just_audio.ProcessingState.completed
                           ? Icons.replay
                           : Icons.play_arrow,
                     ),
@@ -108,8 +108,6 @@ class _PlayerControlsViewState extends State<PlayerControlsView> {
             ),
           ],
         );
-      },
-    );
   }
 
   /// Builds the progress bar, slider, and time labels
