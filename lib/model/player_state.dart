@@ -1,1 +1,0 @@
-enum PlayerState { playing, stopped, timer }

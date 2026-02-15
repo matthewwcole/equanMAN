@@ -2,8 +2,16 @@ import 'package:just_audio/just_audio.dart' as just_audio;
 import 'package:audio_session/audio_session.dart';
 import 'package:rxdart/rxdart.dart'; // Import rxdart for CombineLatestStream
 import 'package:equanimity/model/playlist.dart';
-import 'package:equanimity/model/position_data.dart';
-import 'package:equanimity/model/player_state.dart';
+
+
+enum PlayerState { playing, stopped, timer }
+
+class PositionData {
+  const PositionData(this.position, this.bufferedPosition, this.duration);
+  final Duration position;
+  final Duration bufferedPosition;
+  final Duration duration;
+}
 
 class AudioPlayerService {
   final _player = just_audio.AudioPlayer();

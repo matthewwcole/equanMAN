@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart' as just_audio;
 import 'package:equanimity/model/playlist.dart';
-import 'package:equanimity/model/position_data.dart';
-import 'package:equanimity/model/player_state.dart';
 import 'package:equanimity/services/audio_player_service.dart';
 import 'package:equanimity/viewmodel/sleep_timer_viewmodel.dart';
 import 'package:flutter/cupertino.dart'; // For CupertinoAlertDialog and CupertinoTimerPicker

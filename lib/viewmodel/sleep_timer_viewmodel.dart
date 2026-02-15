@@ -30,4 +30,9 @@ class SleepTimerLogic {
     _timer?.cancel();
     _isRunning = false;
   }
+
+  void dispose() {
+    _timer?.cancel();  // timers need to be disposed
+  }
+
 }
