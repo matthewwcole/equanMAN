@@ -1,5 +1,5 @@
 import 'package:equanimity/services/audio_player_service.dart';
-import 'package:equanimity/view/styled_audio_button.dart';
+import 'package:equanimity/widgets/styled_audio_button.dart';
 import 'package:flutter/material.dart';
 
 class AudioControlButtons extends StatefulWidget {

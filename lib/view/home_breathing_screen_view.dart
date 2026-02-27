@@ -2,8 +2,9 @@
 import 'package:equanimity/model/playlist.dart';
 import 'package:equanimity/model/theme/app_pallete.dart';
 import 'package:equanimity/services/audio_player_service.dart';
-import 'package:equanimity/view/audio_control_buttons_view.dart';
+import 'package:equanimity/widgets/audio_control_buttons_widget.dart';
 import 'package:equanimity/viewmodel/sleep_timer_viewmodel.dart';
+import 'package:equanimity/widgets/playlist_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
@@ -196,32 +197,18 @@ class _HomeBreathingScreenState extends State<HomeBreathingScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              DropdownButton<int>(
-                dropdownColor: const Color(0xFF023e8a),
-                style: const TextStyle(
-                  color: Pallete.primaryText,
-                  fontSize: 16,
-                ),
-                value: _selectedPlaylistIndex,
-                items: Playlist.allPlaylists
-                    .asMap()
-                    .entries
-                    .map(
-                      (e) => DropdownMenuItem<int>(
-                        value: e.key,
-                        child: Text(e.value.title),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (index) {
-                  if (index != null) {
+              if (Playlist.allPlaylists.isNotEmpty)
+                PlaylistDropdown(
+                  selectedIndex: _selectedPlaylistIndex,
+                  onChanged: (index) {
                     setState(() {
                       _selectedPlaylistIndex = index;
                     });
-                    _audioService.loadPlaylist(Playlist.allPlaylists[index]);
-                  }
-                },
-              ),
+                    _audioService.loadPlaylist(
+                      Playlist.allPlaylists[index],
+                    );
+                  },
+                ),
               const SizedBox(height: 20),
               AudioControlButtons(
                 onPlay: _onPlayPressed,
