@@ -5,9 +5,8 @@ import 'package:equanimity/services/audio_player_service.dart';
 import 'package:equanimity/widgets/audio_control_buttons_widget.dart';
 import 'package:equanimity/viewmodel/sleep_timer_viewmodel.dart';
 import 'package:equanimity/widgets/playlist_dropdown.dart';
+import 'package:equanimity/widgets/timer_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/cupertino.dart';
 
 class HomeBreathingScreen extends StatefulWidget {
   const HomeBreathingScreen({super.key});
@@ -38,114 +37,13 @@ void initState() {
   }
 
   void _onTimerPressed() async {
-    final timerChoices = await showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          title: const Text('Set Auto-Stop Timer'),
-          titleTextStyle: GoogleFonts.openSans(
-            color: Pallete.primaryText,
-            fontSize: 25,
-            fontStyle: FontStyle.italic,
-          ),
-          backgroundColor: Pallete.softPeriwinkle,
-          children: [
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 5); // 5 minutes
-              },
-              child: const Text('5 Minutes'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 15); // 15 minutes
-              },
-              child: const Text('15 Minutes'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 30); // 30 minutes
-              },
-              child: const Text('30 Minutes'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 60); // 60 minutes
-              },
-              child: const Text('60 Minutes'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, 'custom'); // This will be custom
-              },
-              child: const Text('Custom'),
-            ),
-          ],
-        );
-      },
+    final duration = await showTimerDialog(context);
+    if (!mounted || duration == null) return;
+    _timerLogic.startTimer(
+      duration.inHours,
+      duration.inMinutes % 60,
+      duration.inSeconds % 60,
     );
-    if (!mounted) return;
-    if (timerChoices != null) {
-      if (timerChoices == 'custom') {
-        Duration selectedDuration = const Duration(
-          minutes: 15,
-        ); // Default value and this is what VSCode gave us after a tab.
-        final customTime = await showCupertinoDialog(
-          context: context,
-          builder: (context) {
-            return CupertinoAlertDialog(
-              title: const Text('Select Auto-Stop Duration'),
-              content: GestureDetector(
-                child: SizedBox(
-                  height: 250,
-                  child: CupertinoTimerPicker(
-                    mode: CupertinoTimerPickerMode.hms,
-                    onTimerDurationChanged: (Duration newDuration) {
-                      selectedDuration =
-                          newDuration; //Store the picked duration here
-                    },
-                  ),
-                ),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  child: const Text('Cancel'),
-                  onPressed: () {
-                    //What does go here?
-                    Navigator.pop(context);
-                  },
-                ),
-                CupertinoDialogAction(
-                  child: const Text('Namaste'),
-                  onPressed: () {
-                    //What does go here?
-                    Navigator.pop(context, selectedDuration);
-                  },
-                ),
-              ],
-            );
-          },
-        );
-        //Promblem Fixing
-        //This is for is a user navigates away without selecting a time
-        if (!mounted) return;
-        //this is for what?
-        if (customTime != null) {
-          _timerLogic.startTimer(
-            customTime.inHours,
-            customTime.inMinutes % 60,
-            customTime.inSeconds % 60,
-          );
-        }
-      } else {
-        //Start timer with the number
-        _timerLogic.startTimer(
-          0,
-          timerChoices,
-          0,
-        ); // start timer with timerChoices minutes
-      }
-    }
   }
 
   @override
