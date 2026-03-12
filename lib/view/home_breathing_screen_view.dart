@@ -19,14 +19,13 @@ class HomeBreathingScreen extends StatefulWidget {
 class _HomeBreathingScreenState extends State<HomeBreathingScreen> {
   final _audioService = AudioPlayerService();
   late final SleepTimerLogic _timerLogic; //declared without initalization
-  int _selectedPlaylistIndex = 0; // Default to first playlist
 
-  @override
-  void initState() {
-    super.initState();
-    _timerLogic = SleepTimerLogic(_audioService); //initialized here
-    _audioService.loadPlaylist(Playlist.allPlaylists[_selectedPlaylistIndex]);
-  }
+@override
+void initState() {
+  super.initState();
+  _timerLogic = SleepTimerLogic(_audioService);
+  _audioService.loadPlaylist(Playlist.allPlaylists[0]);
+}
 
   void _onPlayPressed() async {
     await _audioService.play();
@@ -199,14 +198,8 @@ class _HomeBreathingScreenState extends State<HomeBreathingScreen> {
               const SizedBox(height: 20),
               if (Playlist.allPlaylists.isNotEmpty)
                 PlaylistDropdown(
-                  selectedIndex: _selectedPlaylistIndex,
-                  onChanged: (index) {
-                    setState(() {
-                      _selectedPlaylistIndex = index;
-                    });
-                    _audioService.loadPlaylist(
-                      Playlist.allPlaylists[index],
-                    );
+                  onChanged: (playlist) {
+                    _audioService.loadPlaylist(playlist);
                   },
                 ),
               const SizedBox(height: 20),
