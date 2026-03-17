@@ -1,6 +1,6 @@
-import 'package:breathingcompanion/view/home_breathing_screen.dart';
+import 'package:equanimity/view/home_breathing_screen_view.dart';
 import 'package:flutter/material.dart';
-import 'package:breathingcompanion/viewmodel/theme/app_pallete.dart';
+import 'package:equanimity/model/theme/app_pallete.dart';
 
 void main() {
   runApp(const MyApp());

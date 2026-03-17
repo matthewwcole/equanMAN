@@ -34,4 +34,7 @@ class Pallete {
   static const iceMelt = Color(0xFFD3E4F1); // Ice Melt
   static const rinsingRivulet = Color(0xFF5CC6C3); // Rinsing Rivulet
 
+  //Tesla Secret Color
+  static const teslaPurple = Color(0xFF511888); // Tesla Secret Purple
+
 }

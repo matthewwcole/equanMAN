@@ -1,8 +1,11 @@
-import 'package:just_audio/just_audio.dart';
+import 'package:just_audio/just_audio.dart' as just_audio;
 import 'package:audio_session/audio_session.dart';
 import 'package:rxdart/rxdart.dart'; // Import rxdart for CombineLatestStream
+import 'package:equanimity/model/playlist.dart';
 
-/// A class to hold the current position, buffered position, and total duration of the audio.
+
+enum PlayerState { playing, stopped, timer }
+
 class PositionData {
   const PositionData(this.position, this.bufferedPosition, this.duration);
   final Duration position;
@@ -10,53 +13,21 @@ class PositionData {
   final Duration duration;
 }
 
-class Playlist {
-  final String title;
-  final List<String> audioAssets;
-
-  Playlist({required this.title, required this.audioAssets});
-
-  static final List<Playlist> allPlaylists = [
-    Playlist(
-      title: 'Resonant Breath 6-0-9-0',
-      audioAssets: ['assets/audio/i6.wav', 'assets/audio/e9.wav'],
-    ),
-    Playlist(
-      title: 'Resonant Breath 6-2-9-2',
-      audioAssets: [
-        'assets/audio/i6.wav',
-        'assets/audio/hold2.wav',
-        'assets/audio/e9.wav',
-        'assets/audio/hold2.wav',
-      ],
-    ),
-    Playlist(
-      title: 'Resonant Breath 6-5-9-5',
-      audioAssets: [
-        'assets/audio/i6.wav',
-        'assets/audio/hold5.wav',
-        'assets/audio/e9.wav',
-        'assets/audio/hold5.wav',
-      ],
-    ),
-    Playlist(
-      title: 'Resonant Breath 6-8-9-8',
-      audioAssets: [
-        'assets/audio/i6.wav',
-        'assets/audio/hold8.wav',
-        'assets/audio/e9.wav',
-        'assets/audio/hold8.wav',
-      ],
-    ),
-    // You can add more playlists here
-  ];
-}
-
 class AudioPlayerService {
-  final _player = AudioPlayer();
+  final _player = just_audio.AudioPlayer();
 
-  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
-  Stream<SequenceState?> get sequenceStateStream => _player.sequenceStateStream;
+  just_audio.AudioPlayer get player => _player;
+
+  Stream<PlayerState> get playerStateStream => _player.playerStateStream.map((s) {
+    if (s.processingState == just_audio.ProcessingState.loading || s.processingState == just_audio.ProcessingState.buffering) {
+      return PlayerState.stopped; // Or a loading state if you introduce one
+    } else if (s.playing) {
+      return PlayerState.playing;
+    } else {
+      return PlayerState.stopped;
+    }
+  });
+  Stream<just_audio.SequenceState?> get sequenceStateStream => _player.sequenceStateStream;
   bool get hasNext => _player.hasNext;
   bool get hasPrevious => _player.hasPrevious;
 
@@ -72,11 +43,11 @@ class AudioPlayerService {
     await _player.stop(); // Stop current playback
 
     final sources = playlist.audioAssets
-        .map((path) => AudioSource.asset(path))
+        .map((path) => just_audio.AudioSource.asset(path))
         .toList();
 
     await _player.setAudioSources(sources, initialIndex: initialIndex);
-    await _player.setLoopMode(LoopMode.all); // Gapless Repeat
+    await _player.setLoopMode(just_audio.LoopMode.all); // Gapless Repeat
   }
 
   Future<void> _init() async {

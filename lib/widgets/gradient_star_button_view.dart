@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class GradientStarButton extends StatefulWidget {
   final VoidCallback onPressed;
-  final String text;
+  final String label; // renamed from 'text'
+  final bool isActive; // added
 
   const GradientStarButton({
     super.key,
     required this.onPressed,
-    required this.text,
+    required this.label,
+    required this.isActive,
   });
 
   @override
@@ -17,7 +19,6 @@ class GradientStarButton extends StatefulWidget {
 class _GradientStarButtonState extends State<GradientStarButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
   bool _isPressed = false;
 
   @override
@@ -27,8 +28,6 @@ class _GradientStarButtonState extends State<GradientStarButton>
       vsync: this,
       duration: const Duration(seconds: 5),
     )..repeat();
-
-
   }
 
   @override
@@ -38,16 +37,12 @@ class _GradientStarButtonState extends State<GradientStarButton>
   }
 
   void _onPointerDown(PointerDownEvent event) {
-    setState(() {
-      _isPressed = true;
-    });
+    setState(() => _isPressed = true);
     widget.onPressed();
   }
 
   void _onPointerUp(PointerUpEvent event) {
-    setState(() {
-      _isPressed = false;
-    });
+    setState(() => _isPressed = false);
   }
 
   @override
@@ -64,34 +59,49 @@ class _GradientStarButtonState extends State<GradientStarButton>
         ),
         transformAlignment: Alignment.center,
         child: Container(
-          width: 13 * 16.0, // 13rem
-          height: 3 * 16.0, // 3rem
+          width: 100,
+          height: 100,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5 * 16.0), // 5rem
-            gradient: const LinearGradient(
-              colors: [
-                Color(0xFFFFDB3B),
-                Color(0xFFFE53BB),
-                Color(0xFF8F51EA),
-                Color(0xFF0044FF),
-              ],
+            borderRadius: BorderRadius.circular(20),
+            // Gradient border glows when active, muted when inactive
+            gradient: LinearGradient(
+              colors: widget.isActive
+                  ? const [
+                      Color(0xFFFFDB3B),
+                      Color(0xFFFE53BB),
+                      Color(0xFF8F51EA),
+                      Color(0xFF0044FF),
+                    ]
+                  : const [
+                      Colors.grey,
+                      Colors.grey,
+                    ],
             ),
             border: Border.all(color: Colors.transparent, width: 4),
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF212121),
-              borderRadius: BorderRadius.circular(5 * 16.0),
+              // Active: slightly lighter dark to show selection
+              color: widget.isActive
+                  ? const Color(0xFF2E2E2E)
+                  : const Color(0xFF212121),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Center(
               child: Text(
-                widget.text,
-                style: const TextStyle(
+                widget.label, // renamed from widget.text
+                style: TextStyle(
                   fontFamily: "Avalors Personal Use",
                   fontSize: 12,
                   letterSpacing: 5,
                   color: Colors.white,
-                  shadows: [Shadow(blurRadius: 4.0, color: Colors.white)],
+                  // Glow on text when active
+                  shadows: [
+                    Shadow(
+                      blurRadius: widget.isActive ? 8.0 : 0.0,
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -3,7 +3,7 @@
 // lib/view/player_controls_view.dart
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import '../model/audio_player_service.dart';
+import '../services/audio_player_service.dart';
 import '../viewmodel/player_viewmodel.dart';
 
 class PlayerControlsView extends StatefulWidget {
