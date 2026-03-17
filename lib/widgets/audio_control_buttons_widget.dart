@@ -1,4 +1,5 @@
 import 'package:equanimity/services/audio_player_service.dart';
+import 'package:equanimity/widgets/gradient_star_button_view.dart';
 import 'package:equanimity/widgets/styled_audio_button.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,7 @@ class _AudioControlButtonsState extends State<AudioControlButtons> {
             isActive: _playerState == PlayerState.playing,
           ),
           const SizedBox(width: 20),
-          AudioControlButton(
+          GradientStarButton(
             label: 'Stop',
             onPressed: _handleStop,
             isActive: _playerState == PlayerState.stopped,
