@@ -15,11 +15,13 @@ class SleepTimerLogic {
     if (_isRunning) return; // Prevent multiple timers
     _isRunning = true;
     _timer?.cancel();
+    _audioPlayerService.setTimerActive(true);
 
 
     _timer = Timer(
       Duration(hours: hours, minutes: minutes, seconds: seconds),
       () {
+        _audioPlayerService.setTimerActive(false);
         _audioPlayerService.stop();
         _isRunning = false;
       },
@@ -28,6 +30,7 @@ class SleepTimerLogic {
 
   void stopTimer() {
     _timer?.cancel();
+    _audioPlayerService.setTimerActive(false);
     _isRunning = false;
   }
 

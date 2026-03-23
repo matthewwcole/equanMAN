@@ -1,6 +1,7 @@
 // lib/viewmodel/player_viewmodel.dart
 import 'package:just_audio/just_audio.dart' as just_audio;
 import '../services/audio_player_service.dart';
+import 'package:equanimity/model/playback_state.dart';
 
 // This ViewModel is simple, mainly passing through the service's functionality.
 // It could be expanded to include more complex logic, like managing playlists.
@@ -9,11 +10,15 @@ class PlayerViewModel {
 
   PlayerViewModel(this._audioPlayerService);
 
-  // Pass streams directly from the service to the view
-  Stream<PlayerState> get playerStateStream => _audioPlayerService.playerStateStream;
-  Stream<PositionData> get positionDataStream => _audioPlayerService.positionDataStream;
-  Stream<just_audio.SequenceState?> get sequenceStateStream => _audioPlayerService.sequenceStateStream;
-  just_audio.PlayerState? get currentJustAudioPlayerState => _audioPlayerService.player.playerState;
+  // Streams
+  Stream<PlaybackState> get playbackStateStream => 
+  _audioPlayerService.playbackStateStream;
+  Stream<PositionData> get positionDataStream => 
+  _audioPlayerService.positionDataStream;
+  Stream<just_audio.SequenceState?> get sequenceStateStream => 
+  _audioPlayerService.sequenceStateStream;
+  just_audio.PlayerState? get currentJustAudioPlayerState => 
+  _audioPlayerService.player.playerState;
 
   // Getters
   bool get hasNext => _audioPlayerService.hasNext;

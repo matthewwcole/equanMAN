@@ -1,4 +1,4 @@
-// lib/view/player_controls_view.dart
+/* // lib/view/player_controls_view.dart
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart' as just_audio;
 import '../services/audio_player_service.dart';
@@ -153,3 +153,4 @@ class _PlayerControlsViewState extends State<PlayerControlsView> {
     );
   }
 }
+ */

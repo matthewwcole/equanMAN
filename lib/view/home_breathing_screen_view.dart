@@ -102,6 +102,7 @@ void initState() {
                 ),
               const SizedBox(height: 20),
               AudioControlButtons(
+                audioService: _audioService,
                 onPlay: _onPlayPressed,
                 onStop: _onStopPressed,
                 startTimer: _onTimerPressed,
